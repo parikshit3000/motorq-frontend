@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body onload="hello()">
+    <h1>Registered Events</h1>
+    <div class="container" id="container">
+        <!-- <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" id="ename">Deafault</h5>
+                <p class="card-text">Start Time: <span id="stime"></span> </p>
+                <p class="card-text">End Time: <span id="etime"></span></p>
+                <p class="card-text">Event Capacity: <span id="ecapacity"></span></p>
+                <p class="card-text">Venue: <span id="evenue"></span></p>
+                <p class="card-text">Latitude: <span id="elat"></span></p>
+                <p class="card-text">Longitude: <span id="elong"></span></p>
+                <a href="#" class="btn btn-primary" onclick="eventLoad()">Register</a>
+            </div>
+        </div> -->
+    </div>
+</body>
+
+<script>
+    function hello() {
+        fetch('http://localhost:3000/events/')
+            .then((response) => response.json())
+            .then((data) => {
+                data.forEach(element => {
+                    var conDiv = document.getElementById("container");
+                    var secDiv = document.createElement('div');
+                    secDiv.className = 'card';
+                    secDiv.innerHTML = '<div class="card-body"><h5 class="card-title" id="ename">' + element.name + '</h5><p class="card-text">Start Time: <span id="stime">' + element.startTimeStamp + '</span> </p><p class="card-text">End Time: <span id="etime">' + element.endTimeStamp + '</span></p><p class="card-text">Event Capacity: <span id="ecapacity">' + element.eventCapacity + '</span></p><p class="card-text">Venue: <span id="evenue">' + element.venue + '</span></p><p class="card-text">Latitude: <span id="elat">' + element.location[0].lat + '</span></p><p class="card-text">Longitude: <span id="elong">' + element.location[0].lng + '</span></p><a href="#" class="btn btn-primary" onclick="eventLoad()">Register</a></div>';
+                    conDiv.appendChild(secDiv);
+                });
+            });
+    }
+    function eventLoad() {
+        alert("Registered Successfully");
+    }
+</script>
+
+</html>
